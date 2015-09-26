@@ -1,0 +1,4 @@
+[all]
+# example
+# www2.example.com ansible_ssh_host=1.2.3.4
+#  ansible_ssh_host value only required if DNS cannot resolve the IP for the hostname

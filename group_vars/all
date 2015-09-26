@@ -1,0 +1,11 @@
+---
+timezone: Etc/UTC
+
+pkgs_to_install:
+  - curl
+  - vim
+
+userlist:
+  - name: username
+    authorized_key: ssh-rsa SSHKEY
+
