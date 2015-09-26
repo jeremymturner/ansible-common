@@ -21,32 +21,32 @@ _See roles/common/tasks/main.yml_
 # Usage
 -------
 
-## Clone this repo
+### Clone this repo
 ```
 git clone https://github.com/jeremymturner/ansible-common.git
 ```
 
-## Add hostnames to hosts file (optionally add IP addresses if hostnames do not resolve in DNS)
+### Add hostnames to hosts file (optionally add IP addresses if hostnames do not resolve in DNS)
 ```
 vim hosts/manual
 ```
 
-## Update timezone, if desired
+### Update timezone, if desired
 ```
 vim group_vars/all
 ```
 
-## Update list of packages to install, if desired
+### Update list of packages to install, if desired
 ```
 vim group_vars/all
 ```
 
-## Add user(s) and SSH key(s) (Required, root ssh access will be removed)
+### Add user(s) and SSH key(s) (Required, root ssh access will be removed)
 ```
 vim group_vars/all
 ```
 
-## Run the playbook
+### Run the playbook
 ```
 ansible-playbook main.yml
 ```
