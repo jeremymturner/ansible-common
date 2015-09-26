@@ -1,0 +1,16 @@
+- name: update ssh parameters
+  lineinfile:
+    dest=/etc/ssh/sshd_config
+    state=present
+    regexp=^{{ item.key }}
+    line="{{ item.key }} {{ item.value }}"
+    insertafter=EOF
+  with_items:
+    - { key: 'PermitRootLogin', value: 'no' }
+    - { key: 'LoginGraceTime', value: '20' }
+    - { key: 'X11Forwarding', value: 'no' }
+    - { key: 'ClientAliveInterval', value: '30' }
+    - { key: 'ClientAliveCountMax', value: '1000' }
+    - { key: 'PasswordAuthentication', value: 'no'}
+  notify:
+    - restart ssh

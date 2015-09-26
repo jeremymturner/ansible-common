@@ -1,0 +1,7 @@
+---
+# Apply common configuration to all hosts
+- name: Apply common role
+  hosts: all
+  user: root
+  roles:
+  - common

@@ -1,0 +1,31 @@
+*filter
+:INPUT DROP [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+
+# Allow loopback, but only from loopback
+-A INPUT -i lo -j ACCEPT
+-A INPUT ! -i lo -d 127.0.0.0/8 -j REJECT
+
+# Allow existing connections to stay up
+-A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Drop invalid packets that can't be identified
+-A INPUT -m state --state INVALID -j DROP
+
+# Allow incoming SSH
+-A INPUT -i eth0 -p tcp --dport 22 -j ACCEPT
+
+# Allow incoming HTTP
+-A INPUT -i eth0 -p tcp --dport 80 -j ACCEPT
+
+# Reject all other inbound - default deny unless explicitly allowed policy:
+-A INPUT -j REJECT
+
+# Allow all other outbound traffic
+-A OUTPUT -j ACCEPT
+
+# Reject forwarded traffic, explicitely (despite chain policy)
+-A FORWARD -j REJECT
+
+COMMIT

@@ -1,0 +1,32 @@
+- name: create individual groups for the users
+  group:
+    name="{{ item.name }}"
+    state=present
+  with_items: userlist
+
+- name: Create user accounts
+  user:
+    name="{{ item.name }}"
+    comment="{{ item.name }}"
+    group="{{ item.name }}"
+    groups="sudo"
+    createhome=yes
+    home="/home/{{ item.name }}"
+    shell=/bin/bash
+    state=present
+  with_items: userlist
+
+- name: ensure public key is in authorized_keys
+  authorized_key:
+    user="{{ item.name }}"
+    key="{{ item.authorized_key }}"
+    state=present
+  with_items: userlist
+
+- name: Make users sudoers
+  template: src=sudoers.d.j2
+            dest="/etc/sudoers.d/{{ item.name }}"
+            owner=root
+            group=root
+            mode=0640
+  with_items: userlist

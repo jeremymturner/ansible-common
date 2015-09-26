@@ -1,0 +1,10 @@
+- name: update timezone variables
+  lineinfile:
+    dest=/etc/timezone
+    state=present
+    regexp=^.*
+    line="{{ item }}"
+  with_items:
+    - America/Denver
+  notify:
+    - update timezone

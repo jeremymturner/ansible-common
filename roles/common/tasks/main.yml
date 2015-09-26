@@ -1,0 +1,33 @@
+---
+
+- name: apt-get update
+  apt:
+    update_cache=yes
+    cache_valid_time=3600
+
+# Set timezone
+- include: timezone.yml
+
+# Set time syncronization
+- include: ntp.yml
+
+# Create default users, groups and ssh keys
+- include: users.yml
+
+# Turn on swap
+- include: swap.yml
+
+# set ssh hardening
+- include: ssh.yml
+
+# set firewall stuff
+- include: firewall.yml
+
+# setup fail2ban
+- include: fail2ban.yml
+
+# setup apt auto upgrade stuff
+- include: apt.yml
+
+# install packages
+- include: install_pkgs.yml

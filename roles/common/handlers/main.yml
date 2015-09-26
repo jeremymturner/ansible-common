@@ -1,0 +1,11 @@
+- name: restart ssh
+  service: name=ssh state=restarted
+  
+- name: restart ntp
+  service: name=ntp state=restarted
+
+- name: update timezone
+  command: dpkg-reconfigure --frontend noninteractive tzdata
+
+- name: restart iptables-persistent
+  service: name=iptables-persistent state=restarted enabled=true

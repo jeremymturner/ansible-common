@@ -1,0 +1,21 @@
+- name: Create swap space
+  command: dd if=/dev/zero of=/swapfile bs=1M count=4000
+  when: ansible_swaptotal_mb < 1
+
+- name: set swap file permissions
+  file: path=/swapfile owner=root group=root mode=0600
+
+- name: Make swap
+  command: /sbin/mkswap /swapfile
+  when: ansible_swaptotal_mb < 1
+
+- name: Activate swap
+  command: /sbin/swapon /swapfile removes=/swapfile
+  when: ansible_swaptotal_mb < 1
+
+- name: Adding swap to /etc/fstab
+  mount: name=swap src=/swapfile fstype=swap opts=defaults state=present
+
+- name: Turn swap on
+  command: swapon -a
+  when: ansible_swaptotal_mb < 1
